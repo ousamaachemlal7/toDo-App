@@ -58,8 +58,6 @@ function addItem(e)
       </div>
     `
 
-      
-
       Swal.fire({
         position: 'center',
         icon: 'success',
@@ -77,24 +75,34 @@ function addItem(e)
       btnClear.classList.remove('hidden')
       const btnEdit = document.querySelector('#edit');
       const divListElements = document.querySelectorAll('.list');
-      console.log(divListElements)
+      //console.log(divListElements)
       divListElements.forEach(element =>  {
         element.addEventListener("click",deleteItem);
       } )
 
-      //divListElements.addEventListener("click",deleteItem);
-
-      btnEdit.addEventListener("click",editItem);
+      divListElements.forEach(element =>  {
+        element.addEventListener("click",editItem);
+      } )
       
     }
  
     else if(value && editFlag){
-
-      //ajouter dans le localstorage
+       
+      editElement.textContent = value;
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'the element has been edited',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      input.value = ""
+      input.focus()
+    }
 
              
 
-    }else{
+    else{
       Swal.fire({
         icon: 'warning',
         title: 'le champs est vide',
@@ -154,7 +162,14 @@ function deleteItem(e){
 }
 
 function editItem(e){
- 
+
+  if(e.target.parentElement.id == "edit"){
+    editFlag  =true
+    editElement = e.target.parentElement.parentElement.parentElement.firstChild.nextElementSibling;
+    input.value = editElement.textContent
+   
+  }
+  
 }
 
 
